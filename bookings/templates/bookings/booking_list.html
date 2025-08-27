@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookings List</title>
+</head>
+<body>
+    <h1>All Bookings</h1>
+    <a href="{% url 'home' %}">Back to Home</a>
+    <ul>
+        {% for booking in object_list %}
+            <li>
+                {{ booking.customer_name }} - {{ booking.venue.name }} on {{ booking.date }}
+            </li>
+        {% empty %}
+            <li>No bookings yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

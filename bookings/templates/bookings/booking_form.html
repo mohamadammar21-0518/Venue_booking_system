@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Booking{% endblock %}
+
+{% block content %}
+<div class="form-card">
+    <h2>Create a Booking</h2>
+    <p class="form-subtitle">Reserve a venue for your university event easily.</p>
+
+    <form method="post" class="booking-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-submit">Submit Booking</button>
+    </form>
+
+    <a href="{% url 'booking-list' %}" class="btn-back">← Back to Booking List</a>
+</div>
+
+<style>
+    .form-card {
+        background-color: #ffffff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .form-card h2 {
+        color: #004080;
+        margin-bottom: 10px;
+        font-size: 28px;
+    }
+
+    .form-subtitle {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 25px;
+    }
+
+    .booking-form p {
+        margin-bottom: 15px;
+    }
+
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+        transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    .booking-form input:focus,
+    .booking-form select:focus,
+    .booking-form textarea:focus {
+        border-color: #004080;
+        box-shadow: 0 0 5px rgba(0, 64, 128, 0.3);
+        outline: none;
+    }
+
+    .btn-submit {
+        background-color: #004080;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+        background-color: #0066cc;
+        transform: translateY(-2px);
+    }
+
+    .btn-back {
+        display: inline-block;
+        margin-top: 20px;
+        color: #004080;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+
+    .btn-back:hover {
+        color: #0066cc;
+    }
+
+    @media (max-width: 768px) {
+        .form-card {
+            padding: 20px;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AIU Event Booking System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #004080;
+            padding: 15px 50px;
+            color: white;
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #0066cc;
+        }
+
+        /* Main Content Area */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        }
+
+        h1.page-title {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #004080;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #004080;
+            color: white;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; }
+            .nav-links { margin-top: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>AIU Event Booking</h1>
+        <div class="nav-links">
+            <a href="{% url 'booking-create' %}">Create Booking</a>
+            <a href="{% url 'venue-list' %}">View Venues</a>
+            <a href="{% url 'booking-list' %}">View Bookings</a>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="container">
+        <h1 class="page-title">{% block title %}Page Title{% endblock %}</h1>
+        {% block content %}
+        <!-- Content from child templates will appear here -->
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2025 Albukhari International University. All Rights Reserved.
+    </div>
+</body>
+</html>
