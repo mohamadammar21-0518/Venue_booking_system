@@ -10,111 +10,82 @@
       margin: 0;
       padding: 20px;
     }
-
     h1 {
       text-align: center;
       margin-bottom: 25px;
-      color: #003580; /* Booking.com blue */
+      color: #003580;
     }
-
-    .container {
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    a.back-btn {
-      display: inline-block;
+    .container { max-width: 1100px; margin: auto; }
+    .top-bar {
+      display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 20px;
-      padding: 10px 18px;
-      background: #003580;
-      color: #fff;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 14px;
+    }
+    a.back-btn, a.create-btn {
+      display: inline-block; padding: 10px 18px;
+      background: #003580; color: #fff; border-radius: 6px;
+      text-decoration: none; font-size: 14px;
       transition: 0.3s;
     }
-
-    a.back-btn:hover {
-      background: #00224f;
-    }
+    a.back-btn:hover, a.create-btn:hover { background: #00224f; }
 
     .booking-card {
-      display: flex;
-      align-items: stretch;
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 20px;
+      display: flex; align-items: stretch;
+      background: #fff; border-radius: 12px;
+      overflow: hidden; margin-bottom: 20px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       transition: 0.3s;
     }
-
-    .booking-card:hover {
-      transform: translateY(-3px);
-    }
-
-    .booking-image {
-      flex: 0 0 200px;
-      background: #ddd;
-    }
-
-    .booking-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .booking-details {
-      flex: 1;
-      padding: 20px;
-    }
-
-    .booking-details h2 {
-      margin: 0;
-      font-size: 20px;
-      color: #003580;
-    }
-
-    .booking-details p {
-      margin: 6px 0;
-      color: #555;
-      font-size: 14px;
-    }
-
-    .booking-date {
-      margin-top: 12px;
-      font-weight: bold;
-      color: #d32f2f;
-    }
-
-    .empty {
-      text-align: center;
-      color: #777;
-      margin-top: 40px;
-      font-size: 16px;
-    }
+    .booking-card:hover { transform: translateY(-3px); }
+    .booking-image { flex: 0 0 200px; background: #ddd; }
+    .booking-image img { width: 100%; height: 100%; object-fit: cover; }
+    .booking-details { flex: 1; padding: 20px; }
+    .booking-details h2 { margin: 0; font-size: 20px; color: #003580; }
+    .booking-details p { margin: 6px 0; color: #555; font-size: 14px; }
+    .booking-date { margin-top: 12px; font-weight: bold; color: #d32f2f; }
+    .status { margin-top: 12px; font-weight: bold; padding: 6px 12px;
+      border-radius: 6px; display: inline-block; font-size: 13px; }
+    .status.Pending { background: #fff3cd; color: #856404; }
+    .status.Approved { background: #d4edda; color: #155724; }
+    .status.Rejected { background: #f8d7da; color: #721c24; }
+    .empty { text-align: center; color: #777; margin-top: 40px; font-size: 16px; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>📌 Your Bookings</h1>
-    <a href="{% url 'home' %}" class="back-btn">🏠 Back to Home</a>
+    <div class="top-bar">
+      <a href="{% url 'home' %}" class="back-btn">🏠 Back to Home</a>
+      <a href="{% url 'booking-create' %}" class="create-btn">➕ New Booking</a>
+    </div>
 
     {% if bookings %}
       {% for booking in bookings %}
         <div class="booking-card">
           <div class="booking-image">
-            {% if booking.venue.image %}
+            {% if booking.venue and booking.venue.image %}
               <img src="{{ booking.venue.image.url }}" alt="{{ booking.venue.name }}">
             {% else %}
               <img src="https://via.placeholder.com/200x150.png?text=Venue+Image" alt="Venue">
             {% endif %}
           </div>
           <div class="booking-details">
-            <h2>{{ booking.venue.name }}</h2>
+            <h2>
+              {% if booking.venue %}
+                {{ booking.venue.name }}
+              {% else %}
+                [Deleted Venue]
+              {% endif %}
+            </h2>
             <p><strong>Customer:</strong> {{ booking.customer_name }} ({{ booking.customer_email }})</p>
             <p><strong>Attendees:</strong> {{ booking.attendees }}</p>
             <p class="booking-date">📅 {{ booking.date }}</p>
+
+            <!-- ✅ Booking status -->
+            {% if booking.status %}
+              <span class="status {{ booking.status }}">{{ booking.status }}</span>
+            {% else %}
+              <span class="status Pending">Pending</span>
+            {% endif %}
           </div>
         </div>
       {% endfor %}

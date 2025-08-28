@@ -8,11 +8,11 @@
         <div class="venue-grid">
             {% for venue in object_list %}
                 <div class="venue-card">
-                    <h3><a href="{% url 'venue-detail' venue.pk %}">{{ venue.name }}</a></h3>
+                    <h3><a href="{% url 'venue_detail' venue.pk %}">{{ venue.name }}</a></h3>
                     <p><strong>Capacity:</strong> {{ venue.capacity }}</p>
                     <p><strong>Location:</strong> {{ venue.location }}</p>
                     <p>{{ venue.description|truncatechars:80 }}</p>
-                    <a href="{% url 'venue-detail' venue.pk %}" class="btn-view">View Details</a>
+                    <a href="{% url 'venue_detail' venue.pk %}" class="btn-view">View Details</a>
                 </div>
             {% endfor %}
         </div>

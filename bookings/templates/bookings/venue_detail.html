@@ -45,6 +45,26 @@
             color: #333;
         }
 
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        .status-available {
+            background-color: #e6f7e6;
+            color: #1a7d1a;
+            border: 1px solid #1a7d1a;
+        }
+        .status-unavailable {
+            background-color: #fdeaea;
+            color: #d93025;
+            border: 1px solid #d93025;
+        }
+
         /* Back link */
         .back-link {
             display: inline-block;
@@ -77,6 +97,14 @@
         <h1>{{ object.name }}</h1>
         <p class="venue-info"><strong>Capacity:</strong> {{ object.capacity }}</p>
         <p class="venue-info"><strong>Location:</strong> {{ object.location }}</p>
+        
+        <!-- Status badge -->
+        {% if object.status == "Available" %}
+            <span class="status-badge status-available">Available</span>
+        {% else %}
+            <span class="status-badge status-unavailable">Unavailable</span>
+        {% endif %}
+
         <p class="venue-description"><strong>Description:</strong> {{ object.description }}</p>
 
         <a href="{% url 'venue-list' %}" class="back-link">← Back to Venues</a>
